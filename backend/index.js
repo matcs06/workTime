@@ -47,6 +47,11 @@ function SetDaysMonth(monthsInfo, id, firstday) {
   }
   return monthsInfo[id];
 }
+
+server.get("/", (req, res) => {
+  res.send("<h1>Server Runnig!!</h1>");
+});
+
 //starting getting
 server.get("/calendar/:id", (req, res) => {
   const id = req.params.id;
@@ -57,4 +62,4 @@ server.get("/calendar/:id", (req, res) => {
   res.json(monthsInfo[id]);
 });
 
-server.listen(3333);
+server.listen(3000);
