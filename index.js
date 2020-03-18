@@ -5,7 +5,7 @@ const server = express();
 //Objeto para armazenar informações de todos os meses
 var monthsInfo = [
   { name: "Janeiro", daysAmmt: 31, startWeekDay: "", WeekDays: [] },
-  { name: "Fevereiro", daysAmmt: 28, startWeekDay: "", WeekDays: [] },
+  { name: "Fevereiro", daysAmmt: 0, startWeekDay: "", WeekDays: [] },
   { name: "Março", daysAmmt: 31, startWeekDay: "", WeekDays: [] },
   { name: "Abril", daysAmmt: 30, startWeekDay: "", WeekDays: [] },
   { name: "Maio", daysAmmt: 31, startWeekDay: "", WeekDays: [] },
@@ -32,8 +32,16 @@ const days = [
 
 //Setting and mapping each day of the week with the days of the month
 //Setando e mapeando cada dia da semana com o dia do mês
-function SetDaysMonth(monthsInfo, id, firstday) {
+function SetDaysMonth(monthsInfo, id, firstday, daysAmmt) {
   monthsInfo[id].startWeekDay = firstday;
+
+  //Informar quantidade de dias caso o mês seja fevereiro
+  //Inform days quantity in case the month is february
+
+  if (monthsInfo[id].daysAmmt == 0) {
+    monthsInfo[id].daysAmmt = parseInt(daysAmmt, 10);
+  }
+
   var index = days.findIndex(days => days == firstday);
   for (var j = 1; j <= monthsInfo[id].daysAmmt; j++) {
     if (index <= 6) {
@@ -56,8 +64,16 @@ server.get("/", (req, res) => {
 server.get("/calendar/:id", (req, res) => {
   const id = req.params.id;
   const firstday = req.query.firstday;
+  let daysAmmt = req.query.days;
+
   monthsInfo[id].WeekDays = []; //cleaning weekdays setted in a previos get
-  SetDaysMonth(monthsInfo, id, firstday);
+
+  //Adding validation to clean the ammount of days if it is passed as a parameter
+  if (daysAmmt) {
+    monthsInfo[id].daysAmmt = []; //cleaning Days ammount setted in a previous get
+  }
+
+  SetDaysMonth(monthsInfo, id, firstday, daysAmmt);
 
   res.json(monthsInfo[id]);
 });
