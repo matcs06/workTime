@@ -26,10 +26,10 @@ Este programa tem como intuito gerar um relatório para preencher as horas traba
 
 # Tudo as letras minusculas e sem esqucer as ascentuações
 
+1.  No final ficará assim: http://localhost:3000/calendar/0/firstday=segunda
+    ![](images/saída.PNG)
+
 # No caso do mês de fevereiro você precisará passar outro query params (days) informando a quantidade de dias:
 
-1.  Exemplo: http://localhost:3000/calendar/1?firstday=segunda&days=29
+2.  Exemplo: http://localhost:3000/calendar/1?firstday=segunda&days=29
     ![](images/feb.png)
-
-2.  No final ficará assim: http://localhost:3000/calendar/0/firstday=segunda
-    ![](images/saída.PNG)
