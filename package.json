@@ -4,8 +4,10 @@
   "description": "workdays app",
   "main": "index.js",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "sucrase": "^3.12.1"
   },
   "devDependencies": {},
   "scripts": {

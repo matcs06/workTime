@@ -1,5 +1,15 @@
-const express = require("express");
+import express from "express";
 const server = express();
+const cors = require("cors");
+
+server.use(cors());
+
+var corsOptions = {
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200
+};
+
+server.use(cors(corsOptions));
 
 //JS Object to store informations about the months
 //Objeto para armazenar informações de todos os meses
@@ -78,4 +88,4 @@ server.get("/calendar/:id", (req, res) => {
   res.json(monthsInfo[id]);
 });
 
-server.listen(3000);
+server.listen(3333);
