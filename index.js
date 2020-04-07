@@ -6,7 +6,7 @@ server.use(cors());
 
 var corsOptions = {
   origin: "http://localhost:3000",
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 
 server.use(cors(corsOptions));
@@ -25,7 +25,7 @@ var monthsInfo = [
   { name: "Setembro", daysAmmt: 30, startWeekDay: "", WeekDays: [] },
   { name: "Outrubro", daysAmmt: 31, startWeekDay: "", WeekDays: [] },
   { name: "Novembro", daysAmmt: 30, startWeekDay: "", WeekDays: [] },
-  { name: "Dezembro", daysAmmt: 31, startWeekDay: "", WeekDays: [] }
+  { name: "Dezembro", daysAmmt: 31, startWeekDay: "", WeekDays: [] },
 ];
 
 //array with the days of the week
@@ -37,22 +37,45 @@ const days = [
   "quinta",
   "sexta",
   "sábado",
-  "domingo"
+  "domingo",
 ];
+//Changing array in a json stucture
+function jsonStruct(array, monthId) {
+  var date = new Date();
+  var year = date.getFullYear();
+
+  const jsonStr = array.map((data) => ({
+    Id: parseInt(data.split(",")[0]),
+    Dias: data.split(",")[0] + `/${monthId + 1}` + `/${year}`,
+    Semana: UpperCaseFirstOnly(data.split(",")[1].trim()),
+    Entrada: "09:00 AM",
+    Saída: "16:00 PM",
+  }));
+
+  return jsonStr;
+}
+
+//Função para deixar apenas a primeira letra maiúscula
+function UpperCaseFirstOnly(word) {
+  var wordUp;
+  wordUp = word.split("");
+  wordUp[0] = wordUp[0].toUpperCase();
+
+  wordUp = wordUp.join("");
+  return wordUp;
+}
 
 //Setting and mapping each day of the week with the days of the month
 //Setando e mapeando cada dia da semana com o dia do mês
 function SetDaysMonth(monthsInfo, id, firstday, daysAmmt) {
   monthsInfo[id].startWeekDay = firstday;
-
   //Informar quantidade de dias caso o mês seja fevereiro
   //Inform days quantity in case the month is february
-
   if (monthsInfo[id].daysAmmt == 0) {
     monthsInfo[id].daysAmmt = parseInt(daysAmmt, 10);
   }
 
-  var index = days.findIndex(days => days == firstday);
+  var index = days.findIndex((days) => days == firstday);
   for (var j = 1; j <= monthsInfo[id].daysAmmt; j++) {
     if (index <= 6) {
       monthsInfo[id].WeekDays.push(j + ", " + days[index]);
@@ -85,7 +108,9 @@ server.get("/calendar/:id", (req, res) => {
 
   SetDaysMonth(monthsInfo, id, firstday, daysAmmt);
 
-  res.json(monthsInfo[id]);
+  let jsonStr = jsonStruct(monthsInfo[id].WeekDays, id);
+
+  res.json(jsonStr);
 });
 
 server.listen(3333);
