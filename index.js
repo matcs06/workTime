@@ -67,7 +67,7 @@ function UpperCaseFirstOnly(word) {
 
 //Setting and mapping each day of the week with the days of the month
 //Setando e mapeando cada dia da semana com o dia do mês
-function SetDaysMonth(monthsInfo, id, firstday, daysAmmt) {
+function SetDaysMonth(monthsInfo, id, firstday, daysAmmt, wknd) {
   monthsInfo[id].startWeekDay = firstday;
   //Informar quantidade de dias caso o mês seja fevereiro
   //Inform days quantity in case the month is february
@@ -77,15 +77,35 @@ function SetDaysMonth(monthsInfo, id, firstday, daysAmmt) {
 
   var index = days.findIndex((days) => days == firstday);
   for (var j = 1; j <= monthsInfo[id].daysAmmt; j++) {
-    if (index <= 6) {
-      monthsInfo[id].WeekDays.push(j + ", " + days[index]);
-      index++;
-    } else {
-      index = 0;
-      monthsInfo[id].WeekDays.push(j + ", " + days[index]);
-      index++;
+    //Caso o usuário queira eliminar os fins de semana
+    //In case the user does not want to include the weekends
+    if (wknd == "1") {
+      if (index <= 6) {
+        if (days[index] != "sábado" && days[index] != "domingo")
+          monthsInfo[id].WeekDays.push(j + ", " + days[index]);
+        index++;
+      } else {
+        if (days[index] != "sábado" && days[index] != "domingo") {
+          index = 0;
+          monthsInfo[id].WeekDays.push(j + ", " + days[index]);
+          index++;
+        }
+      }
     }
-  }
+    //Caso o usário não queira eliminar os fins de semana
+    //In case the user wants to include the weekends
+    else {
+      if (index <= 6) {
+        monthsInfo[id].WeekDays.push(j + ", " + days[index]);
+        index++;
+      } else {
+        index = 0;
+        monthsInfo[id].WeekDays.push(j + ", " + days[index]);
+        index++;
+      }
+    } //end else
+  } //end for loop
+
   return monthsInfo[id];
 }
 
@@ -98,6 +118,7 @@ server.get("/calendar/:id", (req, res) => {
   const id = req.params.id;
   const firstday = req.query.firstday;
   let daysAmmt = req.query.days;
+  let wkndFlag = req.query.wknd;
 
   monthsInfo[id].WeekDays = []; //cleaning weekdays setted in a previos get
 
@@ -106,7 +127,7 @@ server.get("/calendar/:id", (req, res) => {
     monthsInfo[id].daysAmmt = []; //cleaning Days ammount setted in a previous get
   }
 
-  SetDaysMonth(monthsInfo, id, firstday, daysAmmt);
+  SetDaysMonth(monthsInfo, id, firstday, daysAmmt, wkndFlag);
 
   let jsonStr = jsonStruct(monthsInfo[id].WeekDays, id);
 
