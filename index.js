@@ -129,6 +129,11 @@ server.get("/calendar/:id", (req, res) => {
 
   let jsonStr = jsonStruct(monthsInfo[id].WeekDays, id);
 
+  //Cleaning previous value in the quantity of days of february
+  if (id == 1) {
+    monthsInfo[id].daysAmmt = 0;
+  }
+
   res.json(jsonStr);
 });
 
