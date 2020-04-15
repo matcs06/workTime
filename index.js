@@ -69,10 +69,13 @@ function UpperCaseFirstOnly(word) {
 //Setando e mapeando cada dia da semana com o dia do mês
 function SetDaysMonth(monthsInfo, id, firstday, daysAmmt, wknd) {
   monthsInfo[id].startWeekDay = firstday;
+
   //Informar quantidade de dias caso o mês seja fevereiro
   //Inform days quantity in case the month is february
   if (monthsInfo[id].daysAmmt == 0) {
-    monthsInfo[id].daysAmmt = parseInt(daysAmmt, 10);
+    monthsInfo[id].daysAmmt = parseInt(daysAmmt);
+  } else {
+    monthsInfo[id].daysAmmt = monthsInfo[id].daysAmmt;
   }
 
   var index = days.findIndex((days) => days == firstday);
@@ -121,11 +124,6 @@ server.get("/calendar/:id", (req, res) => {
   let wkndFlag = req.query.wknd;
 
   monthsInfo[id].WeekDays = []; //cleaning weekdays setted in a previos get
-
-  //Adding validation to clean the ammount of days if it is passed as a parameter
-  if (daysAmmt) {
-    monthsInfo[id].daysAmmt = []; //cleaning Days ammount setted in a previous get
-  }
 
   SetDaysMonth(monthsInfo, id, firstday, daysAmmt, wkndFlag);
 
