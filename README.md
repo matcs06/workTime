@@ -38,3 +38,7 @@ Este programa tem como intuito gerar um relatório para preencher as horas traba
     se quiser incluir é só não passar esse parâmetro.
     Exemplo: http://localhost:3333/calendar/1?firstday=quarta&days=29&wknd=1
     ![](images/wknds.PNG)
+
+4.  Subi esta API em um domínio, então no momento você pode acessar sem precisar clonar esse repositório.
+    Domínio criado: http://worktimeapi.com/
+    Exemplo de uso: http://worktimeapi.com/calendar/1?firstday=quarta&days=29&wknd=1
