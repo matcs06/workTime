@@ -35,6 +35,5 @@ Este programa tem como intuito gerar um relatório para preencher as horas traba
     ![](images/feb.png)
 
 3.  Também existe a possiblidade de eliminar os fins de semana, através do envio de um terceiro query params (wknd), se não quiser incluir passe como falor o número 1 wknd = 1,
-    se quiser incluir é só não passar esse parâmetro.
-    Exemplo: http://localhost:3333/calendar/1?firstday=quarta&days=29&wknd=1
+    se quiser incluir é só não passar esse parâmetro. Exemplo: http://localhost:3333/calendar/1?firstday=quarta&days=29&wknd=1
     ![](images/wknds.PNG)
