@@ -24,7 +24,7 @@ Este programa tem como intuito gerar um relatório para preencher as horas traba
 6. sexta
 7. sábado
 
-# Tudo as letras minusculas e sem esqucer as ascentuações
+# Tudo em letras minusculas e sem esquecer as ascentuações
 
 1.  No final ficará assim: http://localhost:3000/calendar/0/firstday=segunda
     ![](images/saída.PNG)
