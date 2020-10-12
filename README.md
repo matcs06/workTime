@@ -29,14 +29,13 @@ Este programa tem como intuito gerar um relatório para preencher as horas traba
 1.  No final ficará assim: http://localhost:3000/calendar/0/firstday=segunda
     ![](images/saída.PNG)
 
-# No caso do mês de fevereiro você precisará passar outro query params (days) informando a quantidade de dias:
+# No caso do mês de fevereiro você precisará passar um query params adicional (days) informando a quantidade de dias:
 
 2.  Exemplo: http://localhost:3000/calendar/1?firstday=segunda&days=29
     ![](images/feb.png)
 <div>
 <h4>   
-3.  Também existe a possiblidade de eliminar os fins de semana, através do envio de um terceiro query params (wknd), se não quiser incluir passe como falor o número 1 wknd = 1,
-    se quiser incluir é só não passar esse parâmetro. Exemplo: http://localhost:3333/calendar/1?firstday=quarta&days=29&wknd=1
+3.  Também existe a possiblidade de eliminar os fins de semana, através do envio de um terceiro query params (wknd), se não quiser incluir os fins de semana passe como valor o número 1 wknd = 1, se quiser incluir é só não passar esse parâmetro. Exemplo: http://localhost:3333/calendar/1?firstday=quarta&days=29&wknd=1
 </h4>
 <img src="./images/wknds.PNG">
 </div>
